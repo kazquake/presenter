@@ -15,7 +15,7 @@ This is a simple web application that reads sensor data from a UDP port and disp
 
 ```sh
 git clone https://github.com/kazquake/presenter.git
-cd r1b7b
+cd presenter
 ```
 
 2. Install necessary Go packages:
@@ -41,7 +41,7 @@ sensor-data-webapp/
 go run main.go
 ```
 
-3. Open your web browser and navigate to `http://localhost:8080` to view the real-time sensor data.
+3. Open your web browser and navigate to `http://localhost:8080/alert` to view the real-time sensor data.
 
 ## How It Works
 

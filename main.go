@@ -39,12 +39,9 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("", http.FileServer(http.FS(staticFiles))))
 
 	http.HandleFunc("/ws", wsHandler)
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		data, _ := staticFiles.ReadFile("static/index.html")
-		data = []byte(replaceStation(string(data), station))
-		data = []byte(replaceRSLinkEmbed(string(data), rsLinkEmbed))
-		w.Write(data)
-	})
+	http.HandleFunc("/", htmlHandler("static/index.html"))
+	http.HandleFunc("/alert", htmlHandler("static/alert.html"))
+	http.HandleFunc("/more", htmlHandler("static/more.html"))
 
 	go udpListener(udpIP, udpPort)
 
@@ -119,6 +116,20 @@ func replaceStation(html, station string) string {
 	return strings.ReplaceAll(html, "{{STATION}}", station)
 }
 
-func replaceRSLinkEmbed(html, station string) string {
-	return strings.ReplaceAll(html, "{{RS_LINK_EMBED}}", station)
+func replaceRSLinkEmbed(html, rsLink string) string {
+	return strings.ReplaceAll(html, "{{RS_LINK_EMBED}}", rsLink)
+}
+
+func htmlHandler(filePath string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		data, err := staticFiles.ReadFile(filePath)
+		if err != nil {
+			http.Error(w, "File not found", http.StatusNotFound)
+			return
+		}
+		html := string(data)
+		html = replaceStation(html, station)
+		html = replaceRSLinkEmbed(html, rsLinkEmbed)
+		w.Write([]byte(html))
+	}
 }
