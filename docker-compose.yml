@@ -1,0 +1,14 @@
+services:
+  app:
+    container_name: presenter_station
+    image: rishatsultanov/presenter:v1.0.0
+    environment:
+      TZ: Asia/Almaty
+      UDP_PORT: 5005
+      UDP_IP: 0.0.0.0
+      WEB_PORT: 8080
+      STATION: "R1B7B"
+      RS_LINK_EMBED: "https://dataview.raspberryshake.org/#/embed/AM/R1B7B/00/EHZ"
+    restart: unless-stopped
+
+    command: presenter
