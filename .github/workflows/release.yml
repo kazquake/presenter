@@ -41,7 +41,7 @@ jobs:
       - name: Build
         run: |
           echo "Building for GOOS=${GOOS} GOARCH=${GOARCH}"
-          output_name=r1b7b-${GOOS}-${GOARCH}
+          output_name=presenter-${GOOS}-${GOARCH}
           if [ "${GOOS}" == "windows" ]; then
             output_name=${output_name}.exe
           fi
@@ -52,8 +52,8 @@ jobs:
       - name: Archive build artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: r1b7b-${{ env.GOOS }}-${{ env.GOARCH }}
-          path: r1b7b-${{ env.GOOS }}-${{ env.GOARCH }}*
+          name: presenter-${{ env.GOOS }}-${{ env.GOARCH }}
+          path: presenter-${{ env.GOOS }}-${{ env.GOARCH }}*
 
   release:
     runs-on: ubuntu-latest
@@ -66,50 +66,50 @@ jobs:
       - name: Download build artifacts (Linux amd64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-linux-amd64
-          path: ./artifacts/r1b7b-linux-amd64
+          name: presenter-linux-amd64
+          path: ./artifacts/presenter-linux-amd64
 
       - name: Download build artifacts (Linux arm)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-linux-arm
-          path: ./artifacts/r1b7b-linux-arm
+          name: presenter-linux-arm
+          path: ./artifacts/presenter-linux-arm
 
       - name: Download build artifacts (Linux arm64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-linux-arm64
-          path: ./artifacts/r1b7b-linux-arm64
+          name: presenter-linux-arm64
+          path: ./artifacts/presenter-linux-arm64
 
       - name: Download build artifacts (Windows amd64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-windows-amd64
-          path: ./artifacts/r1b7b-windows-amd64
+          name: presenter-windows-amd64
+          path: ./artifacts/presenter-windows-amd64
 
       - name: Download build artifacts (Windows arm)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-windows-arm
-          path: ./artifacts/r1b7b-windows-arm
+          name: presenter-windows-arm
+          path: ./artifacts/presenter-windows-arm
 
       - name: Download build artifacts (Windows arm64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-windows-arm64
-          path: ./artifacts/r1b7b-windows-arm64
+          name: presenter-windows-arm64
+          path: ./artifacts/presenter-windows-arm64
 
       - name: Download build artifacts (macOS amd64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-darwin-amd64
-          path: ./artifacts/r1b7b-darwin-amd64
+          name: presenter-darwin-amd64
+          path: ./artifacts/presenter-darwin-amd64
 
       - name: Download build artifacts (macOS arm64)
         uses: actions/download-artifact@v3
         with:
-          name: r1b7b-darwin-arm64
-          path: ./artifacts/r1b7b-darwin-arm64
+          name: presenter-darwin-arm64
+          path: ./artifacts/presenter-darwin-arm64
 
       - name: Create Release
         id: create_release
@@ -128,8 +128,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-linux-amd64/r1b7b-linux-amd64
-          asset_name: r1b7b-linux-amd64
+          asset_path: ./artifacts/presenter-linux-amd64/presenter-linux-amd64
+          asset_name: presenter-linux-amd64
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (Linux arm)
@@ -138,8 +138,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-linux-arm/r1b7b-linux-arm
-          asset_name: r1b7b-linux-arm
+          asset_path: ./artifacts/presenter-linux-arm/presenter-linux-arm
+          asset_name: presenter-linux-arm
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (Linux arm64)
@@ -148,8 +148,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-linux-arm64/r1b7b-linux-arm64
-          asset_name: r1b7b-linux-arm64
+          asset_path: ./artifacts/presenter-linux-arm64/presenter-linux-arm64
+          asset_name: presenter-linux-arm64
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (Windows amd64)
@@ -158,8 +158,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-windows-amd64/r1b7b-windows-amd64.exe
-          asset_name: r1b7b-windows-amd64.exe
+          asset_path: ./artifacts/presenter-windows-amd64/presenter-windows-amd64.exe
+          asset_name: presenter-windows-amd64.exe
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (Windows arm)
@@ -168,8 +168,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-windows-arm/r1b7b-windows-arm.exe
-          asset_name: r1b7b-windows-arm.exe
+          asset_path: ./artifacts/presenter-windows-arm/presenter-windows-arm.exe
+          asset_name: presenter-windows-arm.exe
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (Windows arm64)
@@ -178,8 +178,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-windows-arm64/r1b7b-windows-arm64.exe
-          asset_name: r1b7b-windows-arm64.exe
+          asset_path: ./artifacts/presenter-windows-arm64/presenter-windows-arm64.exe
+          asset_name: presenter-windows-arm64.exe
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (macOS amd64)
@@ -188,8 +188,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-darwin-amd64/r1b7b-darwin-amd64
-          asset_name: r1b7b-darwin-amd64
+          asset_path: ./artifacts/presenter-darwin-amd64/presenter-darwin-amd64
+          asset_name: presenter-darwin-amd64
           asset_content_type: application/octet-stream
 
       - name: Upload Release Asset (macOS arm64)
@@ -198,6 +198,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./artifacts/r1b7b-darwin-arm64/r1b7b-darwin-arm64
-          asset_name: r1b7b-darwin-arm64
+          asset_path: ./artifacts/presenter-darwin-arm64/presenter-darwin-arm64
+          asset_name: presenter-darwin-arm64
           asset_content_type: application/octet-stream
